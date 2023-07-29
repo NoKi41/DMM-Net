@@ -2,7 +2,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-#应该问题不大
+
 class FCN_en(torch.nn.Module):
     def __init__(self, lenth, image_size):
         super(FCN_en, self).__init__()
