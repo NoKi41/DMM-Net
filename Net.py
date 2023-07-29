@@ -108,8 +108,6 @@ class RES_en(torch.nn.Module):
         self.avgpool = nn.AdaptiveAvgPool2d((1,1))
         self.relu = nn.ReLU()
         self.drop = nn.Dropout(0.5)
-    
-    #TODO：卷积核大小是(image_size*4,image_size)
 
     def forward(self, x):
         x = self.conv1(x)
@@ -175,7 +173,6 @@ class T2I(torch.nn.Module):
                 nn.init.constant_(m.weight, 1)
                 nn.init.constant_(m.bias, 0)
 
-    #
 
     def forward(self, x, y):
         x = self.fcn(x)
@@ -206,49 +203,3 @@ class FocalLoss(nn.Module):
         loss = -((1 - pt) ** self.gamma) * self.alpha * logpt
         return loss
 
-
-# model = T2I(num=2,lenth=100,image_size=48)
-# # 定义总参数量、可训练参数量及非可训练参数量变量
-# Total_params = 0
-# Trainable_params = 0
-# NonTrainable_params = 0
-
-# # 遍历model.parameters()返回的全局参数列表
-# for param in model.parameters():
-#     mulValue = np.prod(param.size())  # 使用numpy prod接口计算参数数组所有元素之积
-#     Total_params += mulValue  # 总参数量
-#     if param.requires_grad:
-#         Trainable_params += mulValue  # 可训练参数量
-#     else:
-#         NonTrainable_params += mulValue  # 非可训练参数量
-
-# print(f'Total params: {Total_params}')
-# print(f'Trainable params: {Trainable_params}')
-# print(f'Non-trainable params: {NonTrainable_params}')
-
-
-###### 形状测试
-# import numpy as np
-# b = np.random.randint(2, 4)
-# test = torch.zeros(b,176)
-# t = FCN_en(lenth=176, image_size=np.random.randint(10,100))
-# y = t(test)
-# print(y.shape)
-
-# import numpy as np
-# b = np.random.randint(2, 4)
-# i = np.random.randint(10,100)
-# test = torch.zeros(b,3,4*i,i)
-# t = RES_en(lenth=176, image_size=i)
-# y = t(test)
-# print(y.shape)
-
-
-# import numpy as np
-# b = 5
-# i = np.random.randint(10,100)
-# t = T2I(num=37,lenth=176,image_size=i)
-# x = torch.zeros(b,176)
-# y = torch.zeros(b,4,i,i)
-# pred = t(x, y)
-# print(pred.shape)
